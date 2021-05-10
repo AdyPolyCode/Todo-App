@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    {{ title }}
+</head>
+<body>
+    <div>
+        <h1>Updater</h1>
+
+        <h2 id="warn">Something else insted of -> {{ item.name | capitalize }}</h2>
+
+        <form action="{{ url_for('update', id=item.id) }}" method="POST">
+            <input type="text" name= "name" value="name" placeholder="Enter something">
+            <input type="submit" value="Complete">
+        </form>
+    </div>
+</body>
+</html>

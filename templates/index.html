@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+
+    {% if title %}
+        <title>{{ title }}</title>
+    {% else %}
+        <title>Page</title>
+    {% endif %}
+
+</head>
+<body>
+    <h1>My todo list</h1>
+    <div class="main">
+        {% if mytodos %}
+        <table class="todo-table">
+            {% for todo in mytodos %}
+            <tr>
+                <td class="todo-data">
+                    {{ todo.name }}
+                </td>
+                <td class="todo-action">
+                    <a href="{{ url_for('delete', id=todo.id) }}" class="rem">Delete</a>
+                    <a href="{{ url_for('update', id=todo.id) }} " class="rem">Update</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+            <h3>Todo lis is empty, enter something.</h3>
+        {% endif %}
+    </div>
+    <div class="flashes">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+    <form action="" method="POST">
+        <div class="form-field">
+            {{ form.text.label }}
+            {% if form.text.errors %}
+            {{ form.text() }}
+                {% for error in form.text.errors %}
+                    {{ error }}
+                {% endfor %}
+            {% else %}
+                {{ form.text() }}
+            {% endif %}
+            {{ form.submit() }}
+        </div>
+    </form>
+</body>
+</html>
